@@ -2,6 +2,8 @@ import InputCommon from "@components/public/InputCommon/InputCommon";
 import styles from "./styles.module.scss";
 import Button from "@components/Button/Button";
 import { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const Login = () => {
   const { container, title, boxRememberMe, lostPassword, btn } = styles;
@@ -11,26 +13,64 @@ const Login = () => {
     setIsRegister(!isRegister);
   };
 
+  const validationSchema = yup.object({
+    fullName: isRegister
+      ? yup.string().required("Full name is required")
+      : yup.string(),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    password: yup
+      .string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    confirmPassword: isRegister
+      ? yup
+          .string()
+          .oneOf([yup.ref("password"), null], "Password does not match")
+          .required("Confirm Password is required")
+      : yup.string(),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <div className={container}>
       <div className={title}>{isRegister ? "SIGN UP" : "SIGN IN"}</div>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         {isRegister && (
           <InputCommon
             id="fullName"
             label="Full name"
             type="text"
             isRequired={true}
+            formik={formik}
           />
         )}
 
-        <InputCommon id="email" label="Email" type="text" isRequired={true} />
+        <InputCommon
+          id="email"
+          label="Email"
+          type="text"
+          isRequired={true}
+          formik={formik}
+        />
 
         <InputCommon
           id="password"
           label="Password"
           type="password"
           isRequired={true}
+          formik={formik}
         />
 
         {isRegister && (
@@ -39,6 +79,7 @@ const Login = () => {
             label="Confirm Password"
             type="password"
             isRequired={true}
+            formik={formik}
           />
         )}
 
