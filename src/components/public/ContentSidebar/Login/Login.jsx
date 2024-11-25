@@ -1,20 +1,24 @@
 import InputCommon from "@components/public/InputCommon/InputCommon";
 import styles from "./styles.module.scss";
 import Button from "@components/Button/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { register } from "@/apis/authService";
+import { ToastContext } from "@/contexts/ToastProvider";
 
 const Login = () => {
   const { container, title, boxRememberMe, lostPassword, btn } = styles;
   const [isRegister, setIsRegister] = useState(false);
+  const { toast } = useContext(ToastContext);
 
   const handleToggle = () => {
     setIsRegister(!isRegister);
+    formik.resetForm();
   };
 
   const validationSchema = yup.object({
-    fullName: isRegister
+    fullname: isRegister
       ? yup.string().required("Full name is required")
       : yup.string(),
     email: yup.string().email("Invalid email").required("Email is required"),
@@ -32,14 +36,23 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullName: "",
+      fullname: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      if (isRegister) {
+        const { email, fullname, password } = values;
+        await register({ email, password, fullname })
+          .then((res) => {
+            toast.success(res.data.message);
+          })
+          .catch((err) => {
+            toast.error(err.response.data.message);
+          });
+      }
     },
   });
 
@@ -49,7 +62,7 @@ const Login = () => {
       <form onSubmit={formik.handleSubmit}>
         {isRegister && (
           <InputCommon
-            id="fullName"
+            id="fullname"
             label="Full name"
             type="text"
             isRequired={true}
