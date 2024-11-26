@@ -7,11 +7,13 @@ import * as yup from "yup";
 import { register } from "@/apis/authService";
 import { ToastContext } from "@/contexts/ToastProvider";
 import { login } from "@/apis/authService";
+import { SiderBarContext } from "src/contexts/SideBarProvider";
 
 const Login = () => {
   const { container, title, boxRememberMe, lostPassword, btn } = styles;
   const [isRegister, setIsRegister] = useState(false);
   const { toast } = useContext(ToastContext);
+  const { setIsOpen } = useContext(SiderBarContext);
 
   const handleToggle = () => {
     setIsRegister(!isRegister);
@@ -59,7 +61,8 @@ const Login = () => {
 
         await login({ email, password })
           .then((res) => {
-            console.log(res);
+            localStorage.setItem("token", res.data.token);
+            setIsOpen(false);
           })
           .catch((err) => {
             toast.error(err.response.data.message);

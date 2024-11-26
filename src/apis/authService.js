@@ -7,3 +7,7 @@ export const register = async (body) => {
 export const login = async (body) => {
   return axiosClient.post("/auth/login", body);
 };
+
+export const getInfo = async () => {
+  return axiosClient.get("/users/get-user");
+};
