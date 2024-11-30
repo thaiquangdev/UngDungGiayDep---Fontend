@@ -2,7 +2,7 @@ import BoxIcon from "./BoxIcon/BoxIcon";
 import { dataBoxIcon, dataMenu } from "./constant";
 import Menu from "./Menu/Menu";
 import styles from "./styles.module.scss";
-import logo from "@icons/images/logo-retina.png";
+import logo from "../../../../public/images/Logo-rentina.png";
 import useScrollHandling from "@hooks/useSrollHandling";
 import { useContext, useEffect, useState } from "react";
 import classNames from "classnames";
