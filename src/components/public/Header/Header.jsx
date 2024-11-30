@@ -2,7 +2,6 @@ import BoxIcon from "./BoxIcon/BoxIcon";
 import { dataBoxIcon, dataMenu } from "./constant";
 import Menu from "./Menu/Menu";
 import styles from "./styles.module.scss";
-import logo from "../../../../public/images/Logo-rentina.png";
 import useScrollHandling from "@hooks/useSrollHandling";
 import { useContext, useEffect, useState } from "react";
 import classNames from "classnames";
@@ -58,7 +57,7 @@ const Header = () => {
         <div>
           <Link to="/">
             <img
-              src={logo}
+              src="/images/Logo-retina.png"
               alt="Logo"
               style={{ width: "153px", height: "53px" }}
             />
