@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { register } from "@/apis/authService";
 import { ToastContext } from "@/contexts/ToastProvider";
 import { login } from "@/apis/authService";
-import { SiderBarContext } from "src/contexts/SideBarProvider";
+import { SiderBarContext } from "@/contexts/SideBarProvider";
 
 const Login = () => {
   const { container, title, boxRememberMe, lostPassword, btn } = styles;
