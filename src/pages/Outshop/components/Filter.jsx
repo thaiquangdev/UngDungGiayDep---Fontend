@@ -1,6 +1,6 @@
 import { TfiLayoutGrid4 } from "react-icons/tfi";
 import { CiCircleList } from "react-icons/ci";
-import styles from "../style.module.scss";
+import styles from "../styles.module.scss";
 import { useContext } from "react";
 import { OurShopContext } from "@/contexts/OurShopProvider";
 import SelectBox from "./SelectBox";

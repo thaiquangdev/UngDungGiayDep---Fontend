@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { OurShopContext } from "@/contexts/OurShopProvider";
 import MainLayout from "@components/public/Layout/Layout";
 import ProductItem from "@components/public/ProductItem/ProductItem";
-import styles from "../style.module.scss";
+import styles from "../styles.module.scss";
 import Button from "@components/Button/Button";
 import { useSearchParams } from "react-router-dom";
 
