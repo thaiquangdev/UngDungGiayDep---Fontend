@@ -3,18 +3,30 @@ import { useContext, useState } from "react";
 import styles from "../styles.module.scss";
 import { SiderBarContext } from "@/contexts/SideBarProvider";
 import { StoreContext } from "@/contexts/StoreProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { SearchContext } from "@/contexts/SearchProvider";
 
 const Menu = ({ content, href }) => {
   const { menu } = styles;
   const { setIsOpen, setType } = useContext(SiderBarContext);
   const { userInfo, setUserInfo } = useContext(StoreContext);
   const [isShowSubMenu, setIsShowSubMenu] = useState(false);
+  const { setIsSearchVisiable, isSearchVisiable } = useContext(SearchContext);
+  const navigate = useNavigate();
 
   const handleClickShowLogin = () => {
     if (content === "Sign in" && !userInfo) {
       setIsOpen(true);
       setType("login");
+    }
+
+    if (content === "Our Shop") {
+      navigate("/shop");
+    }
+
+    if (content === "Search") {
+      setIsSearchVisiable(true);
+      console.log(isSearchVisiable);
     }
   };
 
