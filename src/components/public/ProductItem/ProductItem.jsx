@@ -8,6 +8,9 @@ import Button from "@components/Button/Button";
 import classNames from "classnames";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { addToWishlist, deleteWishlist } from "@/apis/wishlistService";
+import { SiderBarContext } from "@/contexts/SideBarProvider";
+import { ToastContext } from "@/contexts/ToastProvider";
 
 const ProductItem = ({
   src,
@@ -36,9 +39,58 @@ const ProductItem = ({
     containerItem,
     isActiveSize,
     btnClear,
+    boxNoWishlist,
+    boxWishlist,
   } = styles;
   // const { isShowGrid } = useContext(OurShopContext);
+  const { toast } = useContext(ToastContext);
+  const token = localStorage.getItem("token");
+  const {
+    setIsOpen,
+    setType,
+    handleGetListProductWishlists,
+    listProductWishlists,
+  } = useContext(SiderBarContext);
+  const [isSetWishlist, setIsSetWishlist] = useState(false);
   const [sizeChoose, setSizeChoose] = useState("");
+
+  const handleAddToWishlist = () => {
+    if (!token) {
+      setIsOpen(true);
+      setType("wishlist");
+      toast.warning("please login to add product to wishlist");
+      return;
+    }
+
+    if (!isSetWishlist) {
+      console.log(productId);
+      addToWishlist(productId).then(
+        (res) => {
+          console.log(res);
+          setIsSetWishlist(true);
+          setIsOpen(true);
+          setType("wishlist");
+          handleGetListProductWishlists("wishlist");
+        },
+        (err) => {
+          console.log(err);
+          toast.error("Add to wishlist is error");
+        }
+      );
+    } else {
+      deleteWishlist(productId).then(
+        (res) => {
+          console.log(res);
+          setIsSetWishlist(false);
+          handleGetListProductWishlists("wishlist");
+        },
+        (err) => {
+          console.log(err);
+          toast.error("Remove wishlist is error");
+        }
+      );
+    }
+  };
 
   const handleChooseSize = (size) => {
     setSizeChoose(size);
@@ -47,6 +99,16 @@ const ProductItem = ({
   const handleClearChooseSize = () => {
     setSizeChoose("");
   };
+
+  useEffect(() => {
+    const handleChangeWishlist = () => {
+      const wishlists = listProductWishlists.map((item) => item.productId);
+      if (wishlists.includes(productId)) {
+        setIsSetWishlist(true);
+      }
+    };
+    handleChangeWishlist();
+  }, [productId]);
 
   return (
     <div className={containerItem}>
@@ -60,7 +122,13 @@ const ProductItem = ({
             <div className={boxIcon}>
               <img src={cartIcon} alt="" />
             </div>
-            <div className={boxIcon}>
+            <div
+              className={classNames(boxIcon, {
+                [boxNoWishlist]: !isSetWishlist,
+                [boxWishlist]: isSetWishlist,
+              })}
+              onClick={() => handleAddToWishlist()}
+            >
               <img src={heartIcon} alt="" />
             </div>
             <div className={boxIcon}>

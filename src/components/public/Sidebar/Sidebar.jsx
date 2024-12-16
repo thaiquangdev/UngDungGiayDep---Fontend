@@ -4,6 +4,7 @@ import { SiderBarContext } from "@/contexts/SideBarProvider";
 import classNames from "classnames";
 import { MdOutlineClose } from "react-icons/md";
 import Login from "@components/public/ContentSidebar/Login/Login";
+import Wishlist from "../ContentSidebar/Wishlist/Wishlist";
 
 const SideBar = () => {
   const { container, overlay, sideBar, slideSideBar, boxIcon } = styles;
@@ -19,8 +20,8 @@ const SideBar = () => {
         return <Login />;
       //   case "compare":
       //     return <Compare />;
-      //   case "wishlist":
-      //     return <Wishlist />;
+      case "wishlist":
+        return <Wishlist />;
       //   case "cart":
       //     return <Cart />;
       //   case "detail":

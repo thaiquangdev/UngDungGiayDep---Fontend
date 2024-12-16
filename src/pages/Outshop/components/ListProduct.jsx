@@ -48,7 +48,7 @@ const ListProduct = () => {
                       brand={item.brand.brandName}
                       details={item.variants}
                       isHomePage={false}
-                      productId={item.id}
+                      productId={item._id}
                       slug={item.slug}
                     />
                   </div>
