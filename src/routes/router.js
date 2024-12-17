@@ -9,6 +9,10 @@ const router = [
     path: "/shop",
     component: lazy(() => import("@/pages/Outshop/Outshop")),
   },
+  {
+    path: "/wishlist",
+    component: lazy(() => import("@pages/Wishlist/Wishlist")),
+  },
 ];
 
 export default router;
