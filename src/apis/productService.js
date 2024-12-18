@@ -7,3 +7,8 @@ export const getProducts = async (query) => {
   });
   return response.data;
 };
+
+export const getProduct = async (slug) => {
+  const response = await axiosClient.get(`/products/get-product/${slug}`);
+  return response.data;
+};

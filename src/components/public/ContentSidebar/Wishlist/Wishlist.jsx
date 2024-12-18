@@ -22,10 +22,10 @@ const Wishlist = () => {
           : listProductWishlists.map((item) => (
               <ItemProduct
                 key={item.id}
-                src={item.productId.images[0].imageUrl}
-                name={item.productId.title}
-                priceProduct={item.productId.price}
-                productId={item.ProductId}
+                src={item.productId?.images[0]?.imageUrl}
+                name={item.productId?.title}
+                priceProduct={item.productId?.price}
+                productId={item?.productId?._id}
               />
             ))}
       </div>

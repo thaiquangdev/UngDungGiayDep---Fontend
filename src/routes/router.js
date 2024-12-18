@@ -13,6 +13,10 @@ const router = [
     path: "/wishlist",
     component: lazy(() => import("@pages/Wishlist/Wishlist")),
   },
+  {
+    path: "/product/:slug",
+    component: lazy(() => import("@pages/ProductDetail/ProductDetail")),
+  },
 ];
 
 export default router;
