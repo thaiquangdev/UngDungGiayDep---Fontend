@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SearchContext } from "@/contexts/SearchProvider";
 
 const Menu = ({ content, href }) => {
-  const { menu } = styles;
+  const { menu, subMenu, subMenuItem } = styles;
   const { setIsOpen, setType } = useContext(SiderBarContext);
   const { userInfo, setUserInfo } = useContext(StoreContext);
   const [isShowSubMenu, setIsShowSubMenu] = useState(false);
@@ -50,6 +50,20 @@ const Menu = ({ content, href }) => {
       onClick={handleClickShowLogin}
     >
       {handleRenderText()}
+      {isShowSubMenu && (
+        <div className={subMenu} onMouseLeave={() => setIsShowSubMenu(false)}>
+          <Link className={subMenuItem} to="/profile">
+            PROFILE
+          </Link>
+          <Link className={subMenuItem} to="/change-password">
+            CHANGE PASSWORD
+          </Link>
+          <Link className={subMenuItem} to="/orders-history">
+            ORDERS HISTORY
+          </Link>
+          <div className={subMenuItem}>LOG OUT</div>
+        </div>
+      )}
     </Link>
   );
 };

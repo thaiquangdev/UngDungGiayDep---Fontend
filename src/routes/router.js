@@ -17,6 +17,10 @@ const router = [
     path: "/product/:slug",
     component: lazy(() => import("@pages/ProductDetail/ProductDetail")),
   },
+  {
+    path: "/change-password",
+    component: lazy(() => import("@pages/ChangePassword/ChangePassword")),
+  },
 ];
 
 export default router;

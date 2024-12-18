@@ -69,6 +69,17 @@
     width: 100%;
     padding: 10px;
     top: 40px;
+
+    .subMenuItem {
+      display: block;
+      padding: 10px 0;
+      text-decoration: none;
+      color: $primary-color;
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
   }
 
   &::after {
