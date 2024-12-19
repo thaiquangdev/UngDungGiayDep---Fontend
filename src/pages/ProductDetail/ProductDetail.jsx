@@ -7,9 +7,10 @@ import Button from "@components/Button/Button";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { TfiReload } from "react-icons/tfi";
 import { useEffect, useState } from "react";
+import { getProduct } from "@/apis/productService";
 import classNames from "classnames";
 import ProductItem from "@components/public/ProductItem/ProductItem";
-import { getProduct } from "@/apis/productService";
+import Review from "./components/Review";
 const ProductDetail = () => {
   const {
     container,
@@ -175,6 +176,8 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+          {/* review */}
+          <Review productId={product?._id} />
           <div className={boxRelated}>
             <h2>Related products</h2>
             <div className={boxRelatedList}>
