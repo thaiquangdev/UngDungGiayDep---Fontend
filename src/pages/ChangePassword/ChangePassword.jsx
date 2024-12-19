@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useContext } from "react";
 import { ToastContext } from "@/contexts/ToastProvider";
+import { changePassword } from "@/apis/userService";
 
 const ChangePassword = () => {
   const { toast } = useContext(ToastContext);
@@ -33,7 +34,16 @@ const ChangePassword = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      changePassword(values)
+        .then((res) => {
+          if (res.success) {
+            toast.success(res.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data.message);
+        });
     },
   });
 
