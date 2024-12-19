@@ -21,6 +21,10 @@ const router = [
     path: "/change-password",
     component: lazy(() => import("@pages/ChangePassword/ChangePassword")),
   },
+  {
+    path: "/profile",
+    component: lazy(() => import("@pages/Profile/Profile")),
+  },
 ];
 
 export default router;
